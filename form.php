@@ -92,7 +92,7 @@ try {
 
     $requestId = $db->lastInsertId();
 
-    $getLangId = $db->prepare("SELECT l_ID FROM LANGUAGE WHERE LANG = ?");
+    $getLangId = $db->prepare("SELECT L_ID FROM LANGUAGE WHERE LANG = ?");
     $insertConn = $db->prepare("INSERT INTO CONNECT (R_ID, L_ID) VALUES (?, ?)");
 
     foreach ($languages as $LANG) {
