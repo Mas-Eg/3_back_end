@@ -103,28 +103,7 @@ try {
 
     $getLangId = $db->prepare("SELECT L_ID FROM LANGUAGE WHERE LANG = ?");
     $insertConn = $db->prepare("INSERT INTO CONNECT (R_ID, L_ID) VALUES (?, ?)");
-    // Проверим, какие языки пришли из формы
-var_dump($languages);
-echo "<br>";
 
-// Проверим содержимое таблицы LANGUAGE
-$checkLangs = $db->query("SELECT * FROM LANGUAGE")->fetchAll(PDO::FETCH_ASSOC);
-echo "Содержимое LANGUAGE:<br>";
-print_r($checkLangs);
-echo "<br>";
-
-// В цикле отлаживаем каждый язык
-foreach ($languages as $LANG) {
-    echo "Ищу язык: '" . $LANG . "'<br>";
-    $getLangId->execute([$LANG]);
-    $row = $getLangId->fetch(PDO::FETCH_ASSOC);
-    if ($row) {
-        echo "Найден ID: " . $row['L_ID'] . "<br>";
-        $insertConn->execute([$requestId, $row['L_ID']]);
-    } else {
-        echo "Язык '$LANG' НЕ найден в таблице LANGUAGE!<br>";
-    }
-}
     foreach ($languages as $LANG) {
         $getLangId->execute([$LANG]);
         $row = $getLangId->fetch(PDO::FETCH_ASSOC);
