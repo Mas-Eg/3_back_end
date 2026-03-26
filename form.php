@@ -1,6 +1,6 @@
 <?php
 $config = include('db_config.php');
-
+$db = null;
 if (!file_exists('db_config.php')) {
     die("Файл db_config.php не найден.");
 }
@@ -124,6 +124,6 @@ try {
 }
 
 } catch (PDOException $e) {
-    if ($db->inTransaction()) $db->rollBack();
+    if ($db !== null && $db->inTransaction()) $db->rollBack();
     echo "Ошибка базы данных: " . $e->getMessage();
 }
