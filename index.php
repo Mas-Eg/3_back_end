@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($tel)) {
-        $errors[] = "Поле 'Телефон' не может быть пустым.";
+        $errors[] = "Поле Телефон не может быть пустым.";
     } elseif (!preg_match('/^\+?[0-9\-]+$/', $tel)) {
         $errors[] = "Телефон введен некорректно.";
     } elseif (strlen($tel) < 6 || strlen($tel) > 12) {
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($gender)) {
-        $errors[] = "Поле 'Пол' не может быть пустым.";
+        $errors[] = "Поле Пол не может быть пустым.";
     } elseif (!in_array($gender, ['M', 'F'])) {
         $errors[] = "Выбран недопустимый пол.";
     }
