@@ -103,7 +103,8 @@ try {
 
     $getLangId = $db->prepare("SELECT L_ID FROM LANGUAGE WHERE LANG = ?");
     $insertConn = $db->prepare("INSERT INTO CONNECT (R_ID, L_ID) VALUES (?, ?)");
-
+    echo $requestId;
+    echo $getLangId;
     foreach ($languages as $LANG) {
         $getLangId->execute([$LANG]);
         $row = $getLangId->fetch(PDO::FETCH_ASSOC);
