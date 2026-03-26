@@ -1,6 +1,14 @@
 <?php
 $config = include('db_config.php');
 
+if (!file_exists('db_config.php')) {
+    die("Файл db_config.php не найден.");
+}
+$config = include('db_config.php');
+if (!is_array($config) || !isset($config['host'], $config['dbname'], $config['user'], $config['pass'])) {
+    die("db_config.php должен возвращать массив с ключами host, dbname, user, pass.");
+}
+
 // 2. Получаем данные из $_POST
 $name = $_POST['fio'] ?? '';        
 $tel = $_POST['phone'] ?? '';      
@@ -59,6 +67,9 @@ if (!$agreement) {
     $errors[] = "Необходимо согласиться с правилами.";
 }
 
+if (!is_array($errors)) {
+    $errors = [];
+}
 if (!empty($errors)) {
     echo "<h2>Ошибки:</h2>";
     foreach ($errors as $error) { 
@@ -105,6 +116,12 @@ try {
 
     $db->commit();
     echo "<h2>Данные успешно сохранены!</h2>";
+    } catch (PDOException $e) {
+    if ($db !== null && $db->inTransaction()) {
+        $db->rollBack();
+    }
+    echo "Ошибка базы данных: " . $e->getMessage();
+}
 
 } catch (PDOException $e) {
     if ($db->inTransaction()) $db->rollBack();
