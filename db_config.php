@@ -1,5 +1,5 @@
 <?php
-$config=[
+$dp=[
 $host="localhost",
 $dbname="u82195",
 $user="u82195",
