@@ -19,7 +19,7 @@ $gender = $_POST['gender'] ?? '';
 $bio = $_POST['bio'] ?? '';
 $languages = $_POST['languages'] ?? [];
 $agreement = isset($_POST['agreement']);
-$languages = array_unique($languages);
+
 $errors = [];
 
 if (empty($name)) {
@@ -101,9 +101,25 @@ try {
 
     $requestId = $db->lastInsertId();
 
-    $getLangId = $db->prepare("SELECT L_ID FROM LANGUAGE WHERE LANG = ?");
-    $insertConn = $db->prepare("INSERT INTO CONNECT (R_ID, L_ID) VALUES (?, ?)");
+    $languages = array_unique($languages); 
 
+$getLangId = $db->prepare("SELECT L_ID FROM LANGUAGE WHERE LANG = ?");
+$insertConn = $db->prepare("INSERT INTO CONNECT (R_ID, L_ID) VALUES (?, ?)");
+$checkConn = $db->prepare("SELECT COUNT(*) FROM CONNECT WHERE R_ID = ? AND L_ID = ?");
+
+foreach ($languages as $LANG) {
+    $getLangId->execute([$LANG]);
+    $row = $getLangId->fetch(PDO::FETCH_ASSOC);
+    if ($row) {
+        $lId = $row['L_ID'];
+        $checkConn->execute([$requestId, $lId]);
+        if ($checkConn->fetchColumn() == 0) {
+            $insertConn->execute([$requestId, $lId]);
+        }
+    } else {
+        error_log("Язык '$LANG' не найден в таблице LANGUAGE");
+    }
+}
     $db->commit();
     echo "<h2>Данные успешно сохранены!</h2>";
 } catch (PDOException $e) {
