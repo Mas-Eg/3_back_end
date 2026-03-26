@@ -119,7 +119,4 @@ try {
         $db->rollBack();
     }
     echo "Ошибка базы данных: " . $e->getMessage();
-}tion $e) {
-    if ($db !== null && $db->inTransaction()) $db->rollBack();
-    echo "Ошибка базы данных: " . $e->getMessage();
 }
