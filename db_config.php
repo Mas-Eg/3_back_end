@@ -1,7 +1,7 @@
 <?php
 $config=[
-$host="localhost";
-$dbname="u82195";
-$user="u82195";
-$pass="6640640";
+$host="localhost",
+$dbname="u82195",
+$user="u82195",
+$pass="6640640",
 ];
