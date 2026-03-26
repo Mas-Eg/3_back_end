@@ -19,7 +19,7 @@ $gender = $_POST['gender'] ?? '';
 $bio = $_POST['bio'] ?? '';
 $languages = $_POST['languages'] ?? [];
 $agreement = isset($_POST['agreement']);
-
+$languages = array_unique($languages);
 $errors = [];
 
 if (empty($name)) {
