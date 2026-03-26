@@ -80,7 +80,7 @@ try {
 
 
     $stmt = $db->prepare("INSERT INTO REQUEST (FIO, PHONE, E_MAIL, B_DATE, GENDER, BIO) 
-                          VALUES (:name, :tel, :email, :birth_date, :gender, :bio,)");
+                          VALUES (:name, :tel, :email, :birth_date, :gender, :bio)");
     $stmt->execute([
         ':name' => $name,
         ':tel' => $tel,
